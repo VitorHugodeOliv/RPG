@@ -1,8 +1,19 @@
 import { Personagem } from '../Character';
 
+interface CanalizarDivindade {
+  [nivel: number]: number;
+}
+
 export class Paladino extends Personagem {
-  constructor(nome: string, nivel: number, raca: string, atributosEscolhidos: { [key: string]: number }) {
-    super(nome, nivel, raca, atributosEscolhidos);
+  canalizarDivindade: number;
+  slotsDeMagia: CanalizarDivindade;
+
+  constructor(id: string, nome: string, nivel: number = 1, raca: string, atributosEscolhidos: { [key: number]: number }, classe: string) {
+    super(id, nome, nivel, raca, atributosEscolhidos, classe = 'Paladino');
+    this.hp = this.calcularHP();
+    this.id = id;
+    this.canalizarDivindade = this.getCanalizarDivindade(nivel);
+    this.slotsDeMagia = this.getSlotsDeMagia(nivel);
   }
 
   protected calcularHpBase(): number {
@@ -14,10 +25,38 @@ export class Paladino extends Personagem {
       hpBase += (this.nivel - 1) * (6 + this.atributos.constituicao)
     }
     return hpBase
-    
+
   }
-    
+
   protected calcularHP(): number {
-  return this.calcularHpBase()
+    return this.calcularHpBase()
+  }
+
+  private getCanalizarDivindade(nivel: number): number {
+    if (nivel <= 2) return 0;
+    if (nivel <= 10) return 2;
+    return 3;
+  }
+
+  private getSlotsDeMagia(nivel: number): CanalizarDivindade {
+    const tabelaDeMagia: { [nivel: number]: { [key: number]: number } } = {
+        1: { 1: 2 },
+        2: { 1: 2 },
+        3: { 1: 3 },
+        4: { 1: 3 },
+        5: { 1: 4, 2: 2 },
+        6: { 1: 4, 2: 2 },
+        7: { 1: 4, 2: 3 },
+        8: { 1: 4, 2: 3 },
+        9: { 1: 4, 2: 3, 3: 2 },
+        10: { 1: 4, 2: 3, 3: 2 },
+        11: { 1: 4, 2: 3, 3: 3 },
+        12: { 1: 4, 2: 3, 3: 3 },
+        13: { 1: 4, 2: 3, 3: 2, 4: 1 },
+        14: { 1: 4, 2: 3, 3: 2, 4: 1 },
+        15: { 1: 4, 2: 3, 3: 2, 4: 2 },
+    };
+
+    return tabelaDeMagia[nivel] || {};
   }
 }
