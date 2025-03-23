@@ -8,9 +8,10 @@ export class Artifice extends Personagem {
   truquesConhecidos: number;
   slotsDeMagia: SlotsDeMagia;
 
-  constructor(nome: string, nivel: number = 1, raca: string, atributosEscolhidos: { [key: string]: number }) {
-    super(nome, nivel, raca, atributosEscolhidos);
+  constructor(id: string, nome: string, nivel: number = 1, raca: string, atributosEscolhidos: { [key: number]: number }, classe: string) {
+    super(id, nome, nivel, raca, atributosEscolhidos, classe = 'Artifice');
     this.hp = this.calcularHP();
+    this.id = id;
     this.truquesConhecidos = this.getTruquesConhecidos(nivel);
     this.slotsDeMagia = this.getSlotsDeMagia(nivel);
   }
@@ -32,115 +33,31 @@ export class Artifice extends Personagem {
   }
 
   private getTruquesConhecidos(nivel: number): number {
-    switch (nivel) {
-      case 1:
-        return 2
-      case 2:
-        return 2
-      case 3:
-        return 2
-      case 4:
-        return 2
-      case 5:
-        return 2
-      case 6:
-        return 2
-      case 7:
-        return 2
-      case 8:
-        return 2
-      case 9:
-        return 2
-      case 10:
-        return 3
-      case 11:
-        return 3
-      case 12:
-        return 3
-      case 13:
-        return 3
-      case 14:
-        return 4
-      case 15:
-        return 4
-      default:
-        return 0
-    }
+    if (nivel <= 9) return 2;
+    if (nivel <= 13) return 3;
+    return 4;
   }
 
   private getSlotsDeMagia(nivel: number): SlotsDeMagia {
-    const slot: SlotsDeMagia = {};
-    switch (nivel) {
-      case 1:
-        slot[1] = 2;
-        break;
-      case 2:
-        slot[1] = 3;
-        break;
-      case 3:
-        slot[1] = 3;
-        break;
-      case 4:
-        slot[1] = 3;
-        break;
-      case 5:
-        slot[1] = 4;
-        slot[2] = 2;
-        break;
-      case 6:
-        slot[1] = 4;
-        slot[2] = 2;
-        break;
-      case 7:
-        slot[1] = 4;
-        slot[2] = 3;
-        break
-      case 8:
-        slot[1] = 4;
-        slot[2] = 3;
-        break;
-      case 9:
-        slot[1] = 4;
-        slot[2] = 3;
-        slot[3] = 2;
-        break;
-      case 10:
-        slot[1] = 4;
-        slot[2] = 3;
-        slot[3] = 2;
-        break;
-      case 11:
-        slot[1] = 4;
-        slot[2] = 3;
-        slot[3] = 3;
-        break;
-      case 12:
-        slot[1] = 4;
-        slot[2] = 3;
-        slot[3] = 3;
-        break;
-      case 13:
-        slot[1] = 4;
-        slot[2] = 3;
-        slot[3] = 3;
-        slot[4] = 1;
-        break;
-      case 14:
-        slot[1] = 4;
-        slot[2] = 3;
-        slot[3] = 3;
-        slot[4] = 1;
-        break;
-      case 15:
-        slot[1] = 4;
-        slot[2] = 3;
-        slot[3] = 3;
-        slot[4] = 2;
-        break;
-      default:
-        break;
-    }
-    return slot;
+    const tabelaDeMagia: { [nivel: number]: { [key: number]: number } } = {
+        1: { 1: 2 },
+        2: { 1: 3 },
+        3: { 1: 3 },
+        4: { 1: 3 },
+        5: { 1: 4, 2: 2 },
+        6: { 1: 4, 2: 2 },
+        7: { 1: 4, 2: 3 },
+        8: { 1: 4, 2: 3 },
+        9: { 1: 4, 2: 3, 3: 2 },
+        10: { 1: 4, 2: 3, 3: 2 },
+        11: { 1: 4, 2: 3, 3: 3 },
+        12: { 1: 4, 2: 3, 3: 3 },
+        13: { 1: 4, 2: 3, 3: 3, 4: 1 },
+        14: { 1: 4, 2: 3, 3: 3, 4: 1 },
+        15: { 1: 4, 2: 3, 3: 3, 4: 2 },
+    };
+
+    return tabelaDeMagia[nivel] || {};
   }
 
 }

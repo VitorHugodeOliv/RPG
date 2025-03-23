@@ -1,4 +1,7 @@
+import { v4 as uuidv4 } from "uuid";
+
 export abstract class Personagem {
+  id: string;
   nome: string;
   nivel: number;
   atributos: {
@@ -11,13 +14,18 @@ export abstract class Personagem {
   }
   raca: string;
   hp: number;
+  classe: string;
 
   
-  constructor(nome: string, nivel: number = 1, raca: string, atributosEscolhidos: { [key: string]: number }) {
+  constructor(id: string, nome: string, nivel: number = 1, raca: string, atributosEscolhidos: { [key: number]: number }, classe: string) {
+    const id4 = uuidv4();
+    id = id4;
+    this.id = id;
     this.nome = nome;
     this.nivel = nivel;
     this.raca = raca;
-    this.atributos = this.inicializadorDeAtributos(atributosEscolhidos);  
+    this.atributos = this.inicializadorDeAtributos(atributosEscolhidos);
+    this.classe = classe;
     this.hp = this.calcularHP();
     
   }
@@ -77,4 +85,5 @@ export abstract class Personagem {
     const modificadorBase = 0;
     return this.calcularHpBase() + modificadorBase;
   }
+
 }
