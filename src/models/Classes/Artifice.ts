@@ -4,6 +4,8 @@ interface SlotsDeMagia {
   [nivel: number]: number;
 }
 
+const viado = 'rony'
+
 export class Artifice extends Personagem {
   truquesConhecidos: number;
   slotsDeMagia: SlotsDeMagia;
