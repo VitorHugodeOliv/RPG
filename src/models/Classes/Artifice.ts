@@ -29,7 +29,7 @@ export class Artifice extends Personagem {
     return hpBase
 
   }
-
+  // aaa
   protected calcularHP(): number {
     return this.calcularHpBase()
   }
