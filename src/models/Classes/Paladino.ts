@@ -1,4 +1,7 @@
 import { Personagem } from '../Character';
+import { Raca } from '../../types/RacaInterface';
+import { Atributos } from '../../types/IAtributos';
+
 
 interface CanalizarDivindade {
   [nivel: number]: number;
@@ -8,7 +11,7 @@ export class Paladino extends Personagem {
   canalizarDivindade: number;
   slotsDeMagia: CanalizarDivindade;
 
-  constructor(id: string, nome: string, nivel: number = 1, raca: string, atributosEscolhidos: { [key: number]: number }, classe: string) {
+  constructor(id: string, nome: string, nivel: number = 1, raca: Raca, atributosEscolhidos: Atributos, classe: string) {
     super(id, nome, nivel, raca, atributosEscolhidos, classe = 'Paladino');
     this.hp = this.calcularHP();
     this.id = id;
