@@ -3,6 +3,7 @@ import { Atributos } from "../../types/IAtributos";
 
 export class MeioOrc implements Raca {
     nome: "Meio-Orc" = "Meio-Orc";
+    subRacas = {}
     aplicarBonusRacial(atributos: Atributos): Atributos {
         return {
             ...atributos,

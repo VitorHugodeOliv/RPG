@@ -1,5 +1,6 @@
 import { Personagem } from '../Character';
 import { Raca } from '../../types/RacaInterface';
+import { SubRaca } from '../../types/RacaInterface';
 import { Atributos } from '../../types/IAtributos';
 
 interface SlotsDeMagia {
@@ -10,8 +11,8 @@ export class Artifice extends Personagem {
   truquesConhecidos: number;
   slotsDeMagia: SlotsDeMagia;
 
-  constructor(id: string, nome: string, nivel: number = 1, raca: Raca, atributosEscolhidos: Atributos, classe: string) {
-    super(id, nome, nivel, raca, atributosEscolhidos, classe = 'Artifice');
+  constructor(id: string, nome: string, nivel: number = 1, raca: Raca, subRaca: SubRaca, atributosEscolhidos: Atributos, classe: string) {
+    super(id, nome, nivel, raca, subRaca, atributosEscolhidos, classe = 'Artifice');
     this.hp = this.calcularHP();
     this.id = id;
     this.truquesConhecidos = this.getTruquesConhecidos(nivel);

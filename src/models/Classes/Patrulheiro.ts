@@ -1,5 +1,6 @@
 import { Personagem } from '../Character';
 import { Raca } from '../../types/RacaInterface';
+import { SubRaca } from '../../types/RacaInterface';
 import { Atributos } from '../../types/IAtributos';
 
 
@@ -11,8 +12,8 @@ export class Patrulheiro extends Personagem {
   inimigosFavoritos: number;
   slotsDeMagia: SlotsDeMagia;
 
-  constructor(id: string, nome: string, nivel: number = 1, raca: Raca, atributosEscolhidos: Atributos, classe: string) {
-    super(id, nome, nivel, raca, atributosEscolhidos, classe = 'Patrulheiro');
+  constructor(id: string, nome: string, nivel: number = 1, raca: Raca, subRaca: SubRaca, atributosEscolhidos: Atributos, classe: string) {
+    super(id, nome, nivel, raca, subRaca, atributosEscolhidos, classe = 'Patrulheiro');
     this.hp = this.calcularHP();
     this.id = id;
     this.inimigosFavoritos = this.getInimigosConhecidos(nivel);

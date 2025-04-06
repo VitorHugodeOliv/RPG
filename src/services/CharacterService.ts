@@ -6,7 +6,7 @@ import { racasDisponiveis } from '../utils/racasDisponiveis';
 import { inicializadorDeAtributos } from '../utils/atributosInicial';
 
 export class CharacterFactory {
-    static criarPersonagem({ nome, nivel = 1, raca, atributosEscolhidos, classe, id = uuidv4() }: CharacterData): Personagem {
+    static criarPersonagem({ nome, nivel = 1, raca, subRaca, atributosEscolhidos, classe, id = uuidv4() }: CharacterData): Personagem {
         const classeSelecionada = classesDisponiveis[classe.toLowerCase()];
 
         if (!classeSelecionada) {
@@ -20,8 +20,13 @@ export class CharacterFactory {
         
 
         const atributosBase = inicializadorDeAtributos(atributosEscolhidos);
-        const atributosComBonus = racaSelecionada.aplicarBonusRacial(atributosBase);
+        let atributosComBonus = racaSelecionada.aplicarBonusRacial(atributosBase);
 
-        return new classeSelecionada(id, nome, nivel, raca, atributosComBonus, classe);
+        if (subRaca && racaSelecionada.subRacas[subRaca.toLowerCase()]) {
+            const subRacaSelecionada = racaSelecionada.subRacas[subRaca.toLowerCase()];
+            atributosComBonus = subRacaSelecionada.aplicarBonusSubRacial(atributosComBonus);
+        }
+
+        return new classeSelecionada(id, nome, nivel, raca, subRaca, atributosComBonus, classe);
     }
 };

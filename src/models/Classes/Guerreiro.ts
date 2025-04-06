@@ -1,5 +1,6 @@
 import { Personagem } from '../Character';
 import { Raca } from '../../types/RacaInterface';
+import { SubRaca } from '../../types/RacaInterface';
 import { Atributos } from '../../types/IAtributos';
 
 
@@ -7,8 +8,8 @@ export class Guerreiro extends Personagem {
   recuperarFolego: number;
   maestriaDeArmas: number;
 
-  constructor(id: string, nome: string, nivel: number = 1, raca: Raca, atributosEscolhidos: Atributos, classe: string) {
-    super(id, nome, nivel, raca, atributosEscolhidos, classe = 'Guerreiro');
+  constructor(id: string, nome: string, nivel: number = 1, raca: Raca, subRaca: SubRaca, atributosEscolhidos: Atributos, classe: string) {
+    super(id, nome, nivel, raca, subRaca, atributosEscolhidos, classe = 'Guerreiro');
     this.hp = this.calcularHP();
     this.id = id;
     this.recuperarFolego = this.getRecuperarFolego(nivel);

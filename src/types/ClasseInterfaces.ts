@@ -3,6 +3,7 @@ export interface CharacterData {
     nome: string;
     nivel?: number;
     raca: string;
+    subRaca?: string;
     atributosEscolhidos: {
         forca: number;
         destreza: number;
