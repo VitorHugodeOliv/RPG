@@ -22,8 +22,12 @@ export class CharacterFactory {
         const atributosBase = inicializadorDeAtributos(atributosEscolhidos);
         let atributosComBonus = racaSelecionada.aplicarBonusRacial(atributosBase);
 
-        if (subRaca && racaSelecionada.subRacas[subRaca.toLowerCase()]) {
+        if (subRaca) {
             const subRacaSelecionada = racaSelecionada.subRacas[subRaca.toLowerCase()];
+              if (!subRacaSelecionada) {
+                const subRacasDisponiveis = Object.keys(racaSelecionada.subRacas).join(", ");
+                throw new Error(`Sub-raça "${subRaca}" não reconhecida. Sub-raças disponíveis: ${subRacasDisponiveis}`);
+              }
             atributosComBonus = subRacaSelecionada.aplicarBonusSubRacial(atributosComBonus);
         }
 
