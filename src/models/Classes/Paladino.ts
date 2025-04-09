@@ -2,7 +2,8 @@ import { Personagem } from '../Character';
 import { Raca } from '../../types/RacaInterface';
 import { SubRaca } from '../../types/RacaInterface';
 import { Atributos } from '../../types/IAtributos';
-
+import { PericiasStatus } from '../../types/IPericias';
+import { aplicarPericiasSelecionadas } from '../../utils/PericiasDisponiveis';
 
 interface CanalizarDivindade {
   [nivel: number]: number;
@@ -11,13 +12,16 @@ interface CanalizarDivindade {
 export class Paladino extends Personagem {
   canalizarDivindade: number;
   slotsDeMagia: CanalizarDivindade;
+  pericias: PericiasStatus;
 
-  constructor(id: string, nome: string, nivel: number = 1, raca: Raca, subRaca: SubRaca, atributosEscolhidos: Atributos, classe: string) {
-    super(id, nome, nivel, raca, subRaca, atributosEscolhidos, classe = 'Paladino');
+  constructor(id: string, nome: string, nivel: number = 1, raca: Raca, subRaca: SubRaca, atributosEscolhidos: Atributos, classe: string, periciasSelecionadas: string[]) {
+    const periciasIniciais = aplicarPericiasSelecionadas(periciasSelecionadas, 'Paladino');
+    super(id, nome, nivel, raca, subRaca, atributosEscolhidos, classe = 'Paladino', periciasIniciais);
     this.hp = this.calcularHP();
     this.id = id;
     this.canalizarDivindade = this.getCanalizarDivindade(nivel);
     this.slotsDeMagia = this.getSlotsDeMagia(nivel);
+    this.pericias = periciasIniciais;
   }
 
   protected calcularHpBase(): number {

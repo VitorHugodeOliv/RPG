@@ -2,6 +2,8 @@ import { Personagem } from '../Character';
 import { Raca } from '../../types/RacaInterface';
 import { SubRaca } from '../../types/RacaInterface';
 import { Atributos } from '../../types/IAtributos';
+import { PericiasStatus } from '../../types/IPericias';
+import { aplicarPericiasSelecionadas } from '../../utils/PericiasDisponiveis';
 
 
 interface SlotsDeMagia {
@@ -11,13 +13,16 @@ interface SlotsDeMagia {
 export class Druida extends Personagem {
   truquesConhecidos: number;
   slotsDeMagia: SlotsDeMagia;
+  pericias: PericiasStatus;
 
-  constructor(id: string, nome: string, nivel: number = 1, raca: Raca, subRaca: SubRaca, atributosEscolhidos: Atributos, classe: string) {
-    super(id, nome, nivel, raca, subRaca, atributosEscolhidos, classe = 'Druida');
+  constructor(id: string, nome: string, nivel: number = 1, raca: Raca, subRaca: SubRaca, atributosEscolhidos: Atributos, classe: string, periciasSelecionadas: string[]) {
+    const periciasIniciais = aplicarPericiasSelecionadas(periciasSelecionadas, 'Druida');
+    super(id, nome, nivel, raca, subRaca, atributosEscolhidos, classe = 'Druida', periciasIniciais);
     this.hp = this.calcularHP();
     this.id = id;
     this.truquesConhecidos = this.getTruquesConhecidos(nivel);
     this.slotsDeMagia = this.getSlotsDeMagia(nivel);
+    this.pericias = periciasIniciais;
   }
 
   protected calcularHpBase(): number {
