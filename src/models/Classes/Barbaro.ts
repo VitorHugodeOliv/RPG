@@ -2,6 +2,8 @@ import { Personagem } from '../Character';
 import { Raca } from '../../types/RacaInterface';
 import { SubRaca } from '../../types/RacaInterface';
 import { Atributos } from '../../types/IAtributos';
+import { PericiasStatus } from '../../types/IPericias';
+import { aplicarPericiasSelecionadas } from '../../utils/PericiasDisponiveis';
 
 
 interface SlotsDeMagia {
@@ -9,26 +11,28 @@ interface SlotsDeMagia {
 }
 
 // ESSE CODIGO TÁ TROCADO COM O DE BARDO TEM QUE AJUSTAR
-
 export class Barbaro extends Personagem {
   truquesConhecidos: number;
   slotsDeMagia: SlotsDeMagia;
+  pericias: PericiasStatus;
 
-  constructor(id: string, nome: string, nivel: number = 1, raca: Raca, subRaca: SubRaca, atributosEscolhidos: Atributos, classe: string) {
-    super(id, nome, nivel, raca, subRaca, atributosEscolhidos, classe = 'Barbaro');
+  constructor(id: string, nome: string, nivel: number = 1, raca: Raca, subRaca: SubRaca, atributosEscolhidos: Atributos, classe: string, periciasSelecionadas: string[]) {
+    const periciasIniciais = aplicarPericiasSelecionadas(periciasSelecionadas, 'Barbaro');
+    super(id, nome, nivel, raca, subRaca, atributosEscolhidos, classe = 'Barbaro', periciasIniciais);
     this.hp = this.calcularHP();
     this.id = id;
     this.truquesConhecidos = this.getTruquesConhecidos(nivel);
     this.slotsDeMagia = this.getSlotsDeMagia(nivel);
+    this.pericias = periciasIniciais;
   }
 
   protected calcularHpBase(): number {
     let hpBase = 0
     if (this.nivel >= 1) {
-      hpBase += 12 + this.atributos.constituicao
+      hpBase += 8 + this.atributos.constituicao
     }
     if (this.nivel > 1) {
-      hpBase += (this.nivel - 1) * (7 + this.atributos.constituicao)
+      hpBase += (this.nivel - 1) * (5 + this.atributos.constituicao)
     }
     return hpBase
 
@@ -65,5 +69,4 @@ export class Barbaro extends Personagem {
 
     return tabelaDeMagia[nivel] || {};
   }
-
 }

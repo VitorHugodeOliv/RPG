@@ -2,6 +2,8 @@ import { Personagem } from '../Character';
 import { Raca } from '../../types/RacaInterface';
 import { SubRaca } from '../../types/RacaInterface';
 import { Atributos } from '../../types/IAtributos';
+import { PericiasStatus } from '../../types/IPericias';
+import { aplicarPericiasSelecionadas } from '../../utils/PericiasDisponiveis';
 
 
 interface SlotsDeMagia {
@@ -9,17 +11,19 @@ interface SlotsDeMagia {
 }
 
 // ESSE CODIGO TÁ TROCADO COM O DE BARDO TEM QUE AJUSTAR
-
 export class Bruxo extends Personagem {
   truquesConhecidos: number;
   slotsDeMagia: SlotsDeMagia;
+  pericias: PericiasStatus;
 
-  constructor(id: string, nome: string, nivel: number = 1, raca: Raca, subRaca: SubRaca, atributosEscolhidos: Atributos, classe: string) {
-    super(id, nome, nivel, raca, subRaca, atributosEscolhidos, classe = 'Bruxo');
+  constructor(id: string, nome: string, nivel: number = 1, raca: Raca, subRaca: SubRaca, atributosEscolhidos: Atributos, classe: string, periciasSelecionadas: string[]) {
+    const periciasIniciais = aplicarPericiasSelecionadas(periciasSelecionadas,'Bruxo');
+    super(id, nome, nivel, raca, subRaca, atributosEscolhidos, classe = 'Bruxo', periciasIniciais);
     this.hp = this.calcularHP();
     this.id = id;
     this.truquesConhecidos = this.getTruquesConhecidos(nivel);
     this.slotsDeMagia = this.getSlotsDeMagia(nivel);
+    this.pericias = periciasIniciais;
   }
 
   protected calcularHpBase(): number {

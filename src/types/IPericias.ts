@@ -1,19 +1,20 @@
-export type Pericia =
-   "Acrobacia"
-   "Arcanismo"
-   "Atletismo"
-   "Atuação"
-   "Blefar"
-   "Furtividade"
-   "História"
-   "Intimidação"
-   "Intuição"
-   "Investigação"
-   "Lidar com animais"
-   "Medicina"
-   "Natureza"
-   "Percepção"
-   "Persuasão"
-   "Prestidigitação"
-   "Religião"
-   "Sobrevivência"
+export interface PericiasStatus {
+  Acrobacia: boolean;
+  Arcanismo: boolean;
+  Atletismo: boolean;
+  Atuação: boolean;
+  Blefar: boolean;
+  Furtividade: boolean;
+  História: boolean;
+  Intimidação: boolean;
+  Intuição: boolean;
+  Investigação: boolean;
+  LidarComAnimais: boolean;
+  Medicina: boolean;
+  Natureza: boolean;
+  Percepção: boolean;
+  Persuasão: boolean;
+  Prestidigitação: boolean;
+  Religião: boolean;
+  Sobrevivência: boolean;
+}

@@ -2,7 +2,8 @@ import { Personagem } from '../Character';
 import { Raca } from '../../types/RacaInterface';
 import { SubRaca } from '../../types/RacaInterface';
 import { Atributos } from '../../types/IAtributos';
-
+import { PericiasStatus } from '../../types/IPericias';
+import { aplicarPericiasSelecionadas } from '../../utils/PericiasDisponiveis';
 
 interface SlotsDeMagia {
   [nivel: number]: number;
@@ -11,13 +12,16 @@ interface SlotsDeMagia {
 export class Patrulheiro extends Personagem {
   inimigosFavoritos: number;
   slotsDeMagia: SlotsDeMagia;
+  pericias: PericiasStatus;
 
-  constructor(id: string, nome: string, nivel: number = 1, raca: Raca, subRaca: SubRaca, atributosEscolhidos: Atributos, classe: string) {
-    super(id, nome, nivel, raca, subRaca, atributosEscolhidos, classe = 'Patrulheiro');
+  constructor(id: string, nome: string, nivel: number = 1, raca: Raca, subRaca: SubRaca, atributosEscolhidos: Atributos, classe: string, periciasSelecionadas: string[]) {
+    const periciasIniciais = aplicarPericiasSelecionadas(periciasSelecionadas,'Patrulheiro');
+    super(id, nome, nivel, raca, subRaca, atributosEscolhidos, classe = 'Patrulheiro', periciasIniciais);
     this.hp = this.calcularHP();
     this.id = id;
     this.inimigosFavoritos = this.getInimigosConhecidos(nivel);
     this.slotsDeMagia = this.getSlotsDeMagia(nivel);
+    this.pericias = periciasIniciais;
   }
 
   protected calcularHpBase(): number {

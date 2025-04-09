@@ -4,9 +4,9 @@ import { CharacterData } from '../types/ClasseInterfaces';
 import { classesDisponiveis } from '../utils/classesDisponiveis';
 import { racasDisponiveis } from '../utils/racasDisponiveis';
 import { inicializadorDeAtributos } from '../utils/atributosInicial';
-
+import { aplicarPericiasSelecionadas } from '../utils/PericiasDisponiveis';
 export class CharacterFactory {
-    static criarPersonagem({ nome, nivel = 1, raca, subRaca, atributosEscolhidos, classe, id = uuidv4() }: CharacterData): Personagem {
+    static criarPersonagem({ nome, nivel = 1, raca, subRaca, atributosEscolhidos, classe, id = uuidv4(), pericias }: CharacterData): Personagem {
         const classeSelecionada = classesDisponiveis[classe.toLowerCase()];
 
         if (!classeSelecionada) {
@@ -31,6 +31,8 @@ export class CharacterFactory {
             atributosComBonus = subRacaSelecionada.aplicarBonusSubRacial(atributosComBonus);
         }
 
-        return new classeSelecionada(id, nome, nivel, raca, subRaca, atributosComBonus, classe);
+        const periciasStatus = aplicarPericiasSelecionadas(pericias, classe);
+
+        return new classeSelecionada(id, nome, nivel, raca, subRaca, atributosComBonus, classe, pericias);
     }
 };

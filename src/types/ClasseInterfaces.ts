@@ -13,4 +13,5 @@ export interface CharacterData {
         carisma: number;
     };
     classe: string;
+    pericias: string[];
 }
