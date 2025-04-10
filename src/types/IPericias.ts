@@ -3,7 +3,7 @@ export interface PericiasStatus {
   Arcanismo: boolean;
   Atletismo: boolean;
   Atuação: boolean;
-  Blefar: boolean;
+  Enganação: boolean;
   Furtividade: boolean;
   História: boolean;
   Intimidação: boolean;
